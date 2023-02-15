@@ -978,13 +978,15 @@ impl<R: Borrow<Transaction>> SighashCache<R> {
         self.segwit_cache.get_or_insert_with(|| {
             let common_cache = Self::common_cache_minimal_borrow(common_cache, tx);
             SegwitCache {
-                prevouts: common_cache.prevouts.hash_again(),
-                sequences: common_cache.sequences.hash_again(),
-                outputs: common_cache.outputs.hash_again(),
+                prevouts: Self::hash_again(&common_cache.prevouts),
+                sequences: Self::hash_again(&common_cache.sequences),
+                outputs: Self::hash_again(&common_cache.outputs),
             }
         })
     }
-
+    fn hash_again(hash: &sha256::Hash) -> sha256d::Hash {
+        sha256d::Hash::from_inner(<sha256::Hash as bitcoin_hashes::Hash>::hash(&hash.into_inner()).into_inner())
+    }
     fn taproot_cache<T: Borrow<TxOut>>(&mut self, prevouts: &[T]) -> &TaprootCache {
         self.taproot_cache.get_or_insert_with(|| {
             let mut enc_amounts = sha256::Hash::engine();

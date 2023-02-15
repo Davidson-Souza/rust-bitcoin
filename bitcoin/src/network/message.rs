@@ -24,6 +24,8 @@ use crate::network::{
 };
 use crate::prelude::*;
 
+use super::utreexo::UtreexoBlock;
+
 /// The maximum number of [super::message_blockdata::Inventory] items in an `inv` message.
 ///
 /// This limit is not currently enforced by this implementation.
@@ -181,7 +183,7 @@ pub enum NetworkMessage {
     /// tx
     Tx(transaction::Transaction),
     /// `block`
-    Block(block::Block),
+    Block(UtreexoBlock),
     /// `headers`
     Headers(Vec<block::Header>),
     /// `sendheaders`
@@ -568,7 +570,7 @@ mod test {
             )),
             NetworkMessage::MemPool,
             NetworkMessage::Tx(tx),
-            NetworkMessage::Block(block),
+            NetworkMessage::Block(block.into()),
             NetworkMessage::Headers(vec![header]),
             NetworkMessage::SendHeaders,
             NetworkMessage::GetAddr,
