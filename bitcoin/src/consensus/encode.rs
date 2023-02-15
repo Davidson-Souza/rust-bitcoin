@@ -16,6 +16,7 @@
 //! typically big-endian decimals, etc.)
 //!
 
+use crate::network::utreexo::{UtreexoBlock, CompactLeafData};
 use crate::prelude::*;
 
 use core::{fmt, mem, u32, convert::From};
@@ -621,6 +622,8 @@ impl_vec!(TapLeafHash);
 impl_vec!(VarInt);
 impl_vec!(ShortId);
 impl_vec!(PrefilledTransaction);
+impl_vec!(UtreexoBlock);
+impl_vec!(CompactLeafData);
 
 #[cfg(feature = "std")] impl_vec!(Inventory);
 #[cfg(feature = "std")] impl_vec!((u32, Address));

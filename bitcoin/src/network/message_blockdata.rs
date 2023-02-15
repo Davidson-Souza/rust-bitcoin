@@ -35,6 +35,10 @@ pub enum Inventory {
     WitnessTransaction(Txid),
     /// Witness Block
     WitnessBlock(BlockHash),
+    /// Utreexo Block
+    UtreexoBlock(BlockHash),
+    /// Utreexo Block with witness
+    UtreexoWitnessBlock(BlockHash),
     /// Unknown inventory type
     Unknown {
         /// The inventory item type.
@@ -61,6 +65,8 @@ impl Encodable for Inventory {
             Inventory::WitnessTransaction(ref t) => encode_inv!(0x40000001, t),
             Inventory::WitnessBlock(ref b) => encode_inv!(0x40000002, b),
             Inventory::Unknown { inv_type: t, hash: ref d } => encode_inv!(t, d),
+            Inventory::UtreexoBlock(ref b) => encode_inv!(1 << 24 | 2, b),
+            Inventory::UtreexoWitnessBlock(ref b) => encode_inv!((1 << 24 | 2), b),
         })
     }
 }

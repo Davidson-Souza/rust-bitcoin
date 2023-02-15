@@ -25,6 +25,8 @@ use crate::consensus::encode::{CheckedData, Decodable, Encodable, VarInt};
 use crate::consensus::{encode, serialize};
 use crate::util::merkleblock::MerkleBlock;
 
+use super::utreexo::UtreexoBlock;
+
 /// The maximum number of [super::message_blockdata::Inventory] items in an `inv` message.
 ///
 /// This limit is not currently enforced by this implementation.
@@ -179,7 +181,7 @@ pub enum NetworkMessage {
     /// tx
     Tx(transaction::Transaction),
     /// `block`
-    Block(block::Block),
+    Block(UtreexoBlock),
     /// `headers`
     Headers(Vec<block::BlockHeader>),
     /// `sendheaders`
@@ -515,7 +517,7 @@ mod test {
             NetworkMessage::GetHeaders(GetHeadersMessage::new(vec![hash([10u8; 32]).into(), hash([40u8; 32]).into()], hash([50u8; 32]).into())),
             NetworkMessage::MemPool,
             NetworkMessage::Tx(tx),
-            NetworkMessage::Block(block),
+            NetworkMessage::Block(block.into()),
             NetworkMessage::Headers(vec![header]),
             NetworkMessage::SendHeaders,
             NetworkMessage::GetAddr,
