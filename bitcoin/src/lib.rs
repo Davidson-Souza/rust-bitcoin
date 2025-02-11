@@ -106,7 +106,6 @@ pub mod merkle_tree;
 pub mod network;
 pub mod policy;
 pub mod pow;
-pub mod psbt;
 pub mod sign_message;
 pub mod taproot;
 
@@ -136,7 +135,6 @@ pub use crate::{
     merkle_tree::MerkleBlock,
     network::{Network, NetworkKind},
     pow::{CompactTarget, Target, Work},
-    psbt::Psbt,
     sighash::{EcdsaSighashType, TapSighashType},
     taproot::{TapBranchTag, TapLeafHash, TapLeafTag, TapNodeHash, TapTweakHash, TapTweakTag},
 };

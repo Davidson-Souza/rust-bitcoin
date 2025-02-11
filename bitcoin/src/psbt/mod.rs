@@ -474,7 +474,7 @@ impl Psbt {
                         #[cfg(feature = "rand-std")]
                         let signature = secp.sign_schnorr(&msg, &key_pair);
                         #[cfg(not(feature = "rand-std"))]
-                        let signature = secp.sign_schnorr_no_aux_rand(&msg, &key_pair);
+                        let signature = secp.sign_schnorr_no_aux_rand(&msg.into(), &key_pair);
 
                         let signature = taproot::Signature { signature, sighash_type };
                         input.tap_script_sigs.insert((xonly, lh), signature);
